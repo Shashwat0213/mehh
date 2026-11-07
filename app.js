@@ -48,3 +48,4 @@ $("#adminForm").addEventListener("submit",e=>{e.preventDefault();const title=$("
 $("#adminList").addEventListener("click",e=>{const id=e.target.dataset.delete;if(!id)return;state.titles=state.titles.filter(t=>t.id!==id);save();render()});
 applyAppearance();renderProfile();render();updateCountdown();setInterval(updateCountdown,1000);
 if("serviceWorker" in navigator && location.protocol.startsWith("http"))window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+ 
