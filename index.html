@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#090a0f">
+  <meta name="description" content="Your personal Marvel Cinematic Universe watch tracker.">
+  <title>MCU Tracker — Your Marvel Timeline</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="MCU Tracker home"><span class="brand-mark">M</span><span>MCU<span class="brand-muted"> TRACKER</span><small>YOUR MARVEL TIMELINE</small></span></a>
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <button class="nav-link active" data-view="discover">Discover</button>
+      <button class="nav-link" data-view="watchlist">My Watchlist</button>
+      <button class="nav-link" data-view="favorites">Favorites</button>
+    </nav>
+    <div class="top-actions">
+      <select id="themeSelect" class="theme-select" aria-label="Choose visual theme"><option value="stark">Stark</option><option value="wakanda">Wakanda</option><option value="asgard">Asgard</option><option value="hulk">Hulk</option><option value="spider">Spider-Verse</option><option value="sanctum">Sanctum</option></select><button class="icon-btn" id="themeToggle" title="Switch light/dark mode" aria-label="Switch light/dark mode">☼</button>
+      <button class="profile-btn" id="profileBtn"><span class="avatar">S</span><span class="profile-name">Sign in</span><span class="chevron">⌄</span></button>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="pulse"></span> THE MARVEL COLLECTION</div>
+        <h1>Your universe.<br><em>Your journey.</em></h1>
+        <p>Keep track of every story, every hero, and every moment across the Marvel Cinematic Universe.</p>
+        <div class="hero-actions"><button class="primary-btn" data-scroll="catalog">Explore the timeline <span>↗</span></button><button class="text-btn" id="resumeBtn">Continue your journey →</button></div>
+      </div>
+      <div class="hero-art" aria-label="Abstract cinematic red energy artwork">
+        <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><div class="reactor"><div class="reactor-core"></div></div>
+        <div class="art-label"><span>MCU</span><b>INFINITE STORIES</b></div>
+        <div class="art-coordinate">EARTH-616&nbsp; / &nbsp;ARCHIVE ONLINE</div>
+      </div>
+    </section>
+
+    <section class="release-panel">
+      <div class="release-kicker">NEXT THEATRICAL EVENT</div>
+      <div class="release-main"><div><h2 id="releaseTitle">Avengers: Doomsday</h2><p id="releaseDate">December 18, 2026 · Release date is editable</p></div><div class="countdown" id="countdown"><div><b>--</b><span>DAYS</span></div><i>:</i><div><b>--</b><span>HRS</span></div><i>:</i><div><b>--</b><span>MIN</span></div><i>:</i><div><b>--</b><span>SEC</span></div></div></div>
+      <div class="release-foot"><span>COUNTDOWN TO THE NEXT CHAPTER</span><button class="subtle-btn" id="editRelease">Edit release date</button></div>
+    </section>
+
+    <section class="stats-grid" aria-label="Your progress">
+      <article class="stat-card progress-card"><div class="stat-top"><span>YOUR MCU PROGRESS</span><span class="stat-icon">◒</span></div><div class="progress-line"><div class="progress-track"><span id="progressFill"></span></div><strong id="progressPercent">0%</strong></div><p id="progressCaption">Your story starts here.</p></article>
+      <article class="stat-card"><div class="stat-top"><span>WATCHED</span><span class="stat-icon">✓</span></div><strong class="stat-number" id="watchedCount">0</strong><p>Titles completed</p></article>
+      <article class="stat-card"><div class="stat-top"><span>TO WATCH</span><span class="stat-icon">◷</span></div><strong class="stat-number" id="remainingCount">0</strong><p>Stories waiting for you</p></article>
+      <article class="stat-card"><div class="stat-top"><span>FAVORITES</span><span class="stat-icon">♡</span></div><strong class="stat-number" id="favoriteCount">0</strong><p>Your all-time picks</p></article>
+    </section>
+
+    <section class="catalog-section" id="catalog">
+      <div class="section-heading"><div><div class="eyebrow">THE ARCHIVE</div><h2 id="sectionTitle">Explore the MCU</h2></div><span class="result-count" id="resultCount"></span></div>
+      <div class="toolbar">
+        <label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Search titles, heroes, phases..." autocomplete="off"></label>
+        <select id="typeFilter" aria-label="Filter by type"><option value="all">All titles</option><option value="movie">Movies</option><option value="series">Series</option></select>
+        <select id="phaseFilter" aria-label="Filter by phase"><option value="all">All phases</option><option>Phase 1</option><option>Phase 2</option><option>Phase 3</option><option>Phase 4</option><option>Phase 5</option><option>Phase 6</option></select>
+        <select id="sortFilter" aria-label="Sort titles"><option value="chronological">Timeline order</option><option value="release">Release date</option><option value="az">A — Z</option></select>
+      </div>
+      <div class="chip-row" id="statusChips"><button class="chip selected" data-status="all">All</button><button class="chip" data-status="unwatched">Unwatched</button><button class="chip" data-status="watched">Watched</button></div>
+      <div class="movie-grid" id="movieGrid"></div>
+      <div class="empty-state hidden" id="emptyState"><span>✦</span><h3>No titles found</h3><p>Try another search or change your filters.</p></div>
+    </section>
+    <footer><span class="footer-brand">MCU TRACKER</span><span>Made for fans. Not affiliated with Marvel or Disney.</span><button id="adminOpen" class="footer-link">Admin preview</button></footer>
+  </main>
+
+  <dialog id="authDialog" class="modal"><form method="dialog" class="modal-card" id="authForm"><button class="modal-close" aria-label="Close">×</button><div class="eyebrow">YOUR PERSONAL ARCHIVE</div><h2>Welcome back.</h2><p>Sign-in is a frontend preview in this build. Cloud authentication will be connected in the backend phase.</p><label class="field-label">Display name<input id="displayName" placeholder="Your name" maxlength="30" required></label><label class="field-label">Email address<input id="emailInput" type="email" placeholder="you@example.com" required></label><button class="primary-btn full-btn" type="submit">Continue in preview <span>→</span></button><small>Your progress is stored on this device for now.</small></form></dialog>
+
+  <dialog id="releaseDialog" class="modal"><form method="dialog" class="modal-card" id="releaseForm"><button class="modal-close" aria-label="Close">×</button><div class="eyebrow">COUNTDOWN SETTINGS</div><h2>Next release</h2><label class="field-label">Title<input id="releaseNameInput" required></label><label class="field-label">Release date<input id="releaseDateInput" type="date" required></label><button class="primary-btn full-btn" type="submit">Save countdown</button></form></dialog>
+
+  <dialog id="adminDialog" class="modal"><form method="dialog" class="modal-card wide-modal" id="adminForm"><button class="modal-close" aria-label="Close">×</button><div class="eyebrow">LOCAL ADMIN PREVIEW</div><h2>Manage the archive</h2><p>This is a local-only interface preview. Real admin roles and protected changes require backend authentication and database rules.</p><div class="admin-fields"><label class="field-label">Title<input id="adminTitle" required placeholder="e.g. The Marvels"></label><label class="field-label">Type<select id="adminType"><option value="movie">Movie</option><option value="series">Series</option></select></label><label class="field-label">Release year<input id="adminYear" type="number" min="1930" max="2100" value="2026" required></label><label class="field-label">Phase<select id="adminPhase"><option>Phase 1</option><option>Phase 2</option><option>Phase 3</option><option>Phase 4</option><option>Phase 5</option><option>Phase 6</option></select></label><label class="field-label full-field">Poster image URL<input id="adminPoster" type="url" placeholder="https://..."></label></div><button class="primary-btn full-btn" type="submit">Add title to this device</button><div class="admin-list" id="adminList"></div></form></dialog>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
